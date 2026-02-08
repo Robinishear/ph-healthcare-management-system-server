@@ -11,4 +11,4 @@ const bootstrap = () => {
 }
 bootstrap()
 
-// Update version: 3.0.0 - Task complete
+// Update version: 4.0.0 - Task complete
