@@ -14,4 +14,3 @@ const bootstrap = () => {
 }
 bootstrap()
 
-// iyuiyi uki 
