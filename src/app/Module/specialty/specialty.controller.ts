@@ -60,8 +60,37 @@ const deleteSpecialty = async (req: Request, res: Response) => {
   }
 };
 
+const updateSpecialty = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res
+        .status(400)
+        .json({ success: false, message: "ID is required" });
+    }
+
+    const payload = req.body;
+    const result = await SpecialtyService.updateSpecialty(id as string, payload);
+
+    res.status(200).json({
+      success: true,
+      message: "Specialty updated successfully.",
+      data: result,
+    });
+  } catch (error: any) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while updating the specialty.",
+      error: error.message,
+    });
+  }
+};
+
 export const SpecialtyController = {
   createSpecialty,
   getAllSpecialties,
   deleteSpecialty,
+  updateSpecialty,
 };
