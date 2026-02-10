@@ -1,6 +1,6 @@
 import { Response } from "express";
 
-//* Global API Response Wrapper" BA "API Response Utility Function
+//* Global API Response Wrapper BA API Response Utility Function
 interface IResponseData<T> {
   httpStatusCode: number;
   success: boolean;
