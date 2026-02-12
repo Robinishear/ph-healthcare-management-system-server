@@ -2,15 +2,13 @@ import { Application, Request, Response } from "express";
 import express from "express";
 import { prisma } from "./app/lib/prisma";
 import { IndexRoute } from "./app/routes";
+import { globalErrorHandler } from "./app/middlewares/globalErrorHandler";
+import { notFound } from "./app/middlewares/notFound";
 
 const app: Application = express();
 
 app.use(express.urlencoded({ extended: true }));
-
 app.use(express.json());
-
-//* Mount the index route
-app.use("/api/v1/", IndexRoute);
 
 app.get("/", async (req: Request, res: Response) => {
   const specialty = await prisma.specialty.create({
@@ -25,4 +23,10 @@ app.get("/", async (req: Request, res: Response) => {
   });
 });
 
+//* Mount the index route
+app.use("/api/v1/", IndexRoute);
+
+// * Global Error Handler Middleware and Not Found Middleware
+app.use(globalErrorHandler);
+app.use(notFound);
 export default app;
