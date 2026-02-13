@@ -1,0 +1,22 @@
+model Doctor {
+  id                 string     @id @default(uuid(7))
+  name               string
+  email              string     @unique
+  profilePhoto       string?
+  contactNumber      string?
+  address            string?
+  isDeleted          boolean    @default(false)
+  deletedAt          DateTime?
+
+  registrationNumber string     @unique
+  experienceYears    Int        @default(0)
+  gender             Gender
+  appointmentFree    Float
+  qualifications     string?
+  currentWorkPlace   string?
+
+  designation        string?
+  averageRating      Float      @default(0.0)
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+}
