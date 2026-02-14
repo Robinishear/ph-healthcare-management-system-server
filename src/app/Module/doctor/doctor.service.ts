@@ -14,10 +14,21 @@ const getAllDoctors = async () => {
   });
   return doctors;
 };
-
+const getDoctorById = async (id: string) => {
+  const result = await prisma.doctor.findUniqueOrThrow({
+    where: {
+      id,
+      isDeleted: false,
+    },
+    include: {
+      specialties: true,
+    },
+  });
+  return result;
+};
 const updateDoctor = async (id: string, payload: any) => {
   await prisma.doctor.findUniqueOrThrow({
-    where: { id, isDeleted: false },
+    where: { id },
   });
 
   const result = await prisma.doctor.update({
@@ -28,16 +39,14 @@ const updateDoctor = async (id: string, payload: any) => {
 };
 
 const deleteDoctor = async (id: string) => {
-  const result = await prisma.doctor.update({
+  const result = await prisma.doctor.delete({
     where: { id },
-    data: {
-      isDeleted: true,
-    },
   });
   return result;
 };
 export const DoctorService = {
   getAllDoctors,
+  getDoctorById,
   updateDoctor,
   deleteDoctor,
 };
