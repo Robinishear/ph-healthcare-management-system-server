@@ -1,4 +1,6 @@
 import dotenv from "dotenv";
+import AppError from "../errorHelpers/AppError";
+import status from "http-status";
 
 dotenv.config();
 
@@ -11,19 +13,22 @@ interface EnvConfig {
 }
 
 const loadEnvVariables = (): EnvConfig => {
- const requiredEnvVariables = [
+  const requireEnvVariable = [
     "NODE_ENV",
     "PORT",
     "DATABASE_URL",
     "BETTER_AUTH_SECRET",
     "BETTER_AUTH_URL",
   ];
-
-  requiredEnvVariables .forEach((variable) => {
+  requireEnvVariable.forEach((variable) => {
     if (!process.env[variable]) {
-      throw new Error(`Missing required environment variable: ${variable}`);
+      // throw new Error(`Environment variable ${variable} is required but not set in .env file.`);
+      throw new AppError(
+        status.INTERNAL_SERVER_ERROR,
+        `Environment variable ${variable} is required but not set in .env file.`,
+      );
     }
-    });
+  });
 
   return {
     NODE_ENV: process.env.NODE_ENV as string,
