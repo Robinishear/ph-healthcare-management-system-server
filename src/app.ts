@@ -4,11 +4,13 @@ import { prisma } from "./app/lib/prisma";
 import { IndexRoute } from "./app/routes";
 import { globalErrorHandler } from "./app/middlewares/globalErrorHandler";
 import { notFound } from "./app/middlewares/notFound";
+import cookieParser from "cookie-parser";
 
 const app: Application = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 
 app.get("/", async (req: Request, res: Response) => {
   const specialty = await prisma.specialty.create({
