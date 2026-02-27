@@ -4,7 +4,7 @@ import status from "http-status";
 
 dotenv.config();
 
-interface EnvConfig {
+interface envConfig {
   NODE_ENV: string;
   PORT: string;
   DATABASE_URL: string;
@@ -18,7 +18,7 @@ interface EnvConfig {
   BETTER_AUTH_SESSION_TOKEN_UPDATE_AGE: string;
 }
 
-const loadEnvVariables = (): EnvConfig => {
+const loadEnvVariables = (): envConfig => {
   const requireEnvVariable = [
     "NODE_ENV",
     "PORT",
